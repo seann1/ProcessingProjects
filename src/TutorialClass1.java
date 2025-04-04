@@ -33,6 +33,7 @@ public void draw() {
     float centerX = width/2;
     float centerY = height/2;
     float radius = 200; // Distance from center
+    int pink = color(255, 153, 204); // Pink color for the background
     // Draw 5 rotated versions
     for (int i = 0; i < 5; i++) {
         pushMatrix();

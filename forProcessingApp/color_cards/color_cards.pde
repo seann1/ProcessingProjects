@@ -48,23 +48,28 @@ PGraphics spotlight1;
 PGraphics spotlight2;
 
 void setup() {
+  // set image size
   size(600, 600);
+  // set origin of rectangles to center
   rectMode(CENTER); // This makes rect() use center coordinates
   //blendMode(DARKEST);
   lastX = width/2;  // Start in center
   lastY = height/2;
+  // create graphic in PGraphics spotlight 1
   spotlight1 = createGraphics(100,100);
   spotlight1.beginDraw();
   spotlight1.fill(255,0,0, 50);
   spotlight1.ellipse(50,50,100,100);
   spotlight1.endDraw();
-  
+  // create graphic in PGraphic spotlight 2
   spotlight2 = createGraphics(100,100);
   spotlight2.beginDraw();
   spotlight2.fill(0, 255,0, 50);
   spotlight2.ellipse(50,50,100,100);
   spotlight2.endDraw();
+  // set origin of images to center
   imageMode(CENTER);
+  // set color mode to HSB
   colorMode(HSB);
 }
 
@@ -72,13 +77,16 @@ void draw() {
   //background(255); // Clear previous frames
   
   // Update position and properties
+  // make the new x and y variables the last x and y plus 1 and 10, and if they are over the width or height, set them to zero
   newX = (lastX += 1) % width;
   newY = (lastY += 10) % height;
   //newX = (lastX + (sin(0.2)*3)) % width;
   // Update colors and size
+  // iterate through colors on each frame. set value to zero if it is over 255
   r = (r + (int)random(10)) % 255;
   g = (g + (int)random(10)) % 255;
   b = (b + (int)random(10)) % 255;
+  // attempted to make rectangle width and height oscillate, but didn't turn out the way I wanted it to
   rectWidth = sin(rectWidth - 0.2) * 100.0;
   println(rectWidth);
   rectHeight = sin(rectHeight - 0.3) * 100.0;
@@ -88,12 +96,14 @@ void draw() {
   pushMatrix(); // Save current transformation state
   translate(newX, newY); // Move origin to rectangle center
   rotate(rotation); // Rotate around new origin
+  // this is actually HSB and alpha
   fill(r, g, b, 70);
   noStroke();
   rect(0, 0, rectWidth, rectHeight); // Draw at (0,0) relative to new origin
   popMatrix(); // Restore original transformation state
   image(spotlight1, 40, 40);
   image(spotlight2, 50, 50);
+  // set last x and y values to current ones
   lastX = newX;
   lastY = newY;
 }
